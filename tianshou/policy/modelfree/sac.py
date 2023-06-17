@@ -113,7 +113,7 @@ class SACPolicy(DDPGPolicy):
     ) -> Batch:
         obs = batch[input]
         logits, hidden = self.actor(obs, state=state, info=batch.info)
-        assert isinstance(logits, tuple)
+        assert isinstance(logits, tuple), f'logits: {logits} is not a tuple'
         dist = Independent(Normal(*logits), 1)
         if self._deterministic_eval and not self.training:
             act = logits[0]
